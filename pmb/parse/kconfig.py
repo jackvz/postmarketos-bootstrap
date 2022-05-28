@@ -167,7 +167,8 @@ def check(args, pkgname,
           force_zram_check=False,
           force_netboot_check=False,
           force_uefi_check=False,
-          details=False):
+          details=False,
+          must_exist=True):
     """
     Check for necessary kernel config options in a package.
 
@@ -181,7 +182,9 @@ def check(args, pkgname,
 
     # Read all kernel configs in the aport
     ret = True
-    aport = pmb.helpers.pmaports.find(args, "linux-" + flavor)
+    aport = pmb.helpers.pmaports.find(args, "linux-" + flavor, must_exist=must_exist)
+    if aport is None:
+        return ret
     apkbuild = pmb.parse.apkbuild(f"{aport}/APKBUILD")
     pkgver = apkbuild["pkgver"]
     check_anbox = force_anbox_check or (
