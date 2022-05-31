@@ -157,6 +157,7 @@ initialize_chroot() {
 		elfutils-dev \
 		findutils \
 		flex \
+		gawk \ # necessary to successfully execute arch/arm64/tools/gen-sysreg.awk
 		g++ \
 		"$gcc_pkgname" \
 		gmp-dev \
